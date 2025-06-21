@@ -41,15 +41,22 @@ return {
     options = {
       opt = { -- vim.opt.<key>
         relativenumber = true, -- sets vim.opt.relativenumber
+        tabstop = 2,
+        shiftwidth = 2,
         number = true, -- sets vim.opt.number
         spell = false, -- sets vim.opt.spell
         signcolumn = "yes", -- sets vim.opt.signcolumn to yes
-        wrap = false, -- sets vim.opt.wrap
+        wrap = true,
+        cursorline = true,
+        expandtab = true,
+        scrolloff = 3,
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
         -- NOTE: `mapleader` and `maplocalleader` must be set in the AstroNvim opts or before `lazy.setup`
         -- This can be found in the `lua/lazy_setup.lua` file
+        autoformat_enabled = true,
+        diagnostics_mode = 3,
       },
     },
     -- Mappings can be configured through AstroCore as well.
@@ -62,6 +69,12 @@ return {
         -- navigate buffer tabs
         ["]b"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
         ["[b"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
+
+        -- タブ管理
+        ["<leader>tn"] = { "<cmd>tabnew<CR>", desc = "新しいタブ" },
+        ["<leader>tc"] = { "<cmd>tabclose<CR>", desc = "タブを閉じる" },
+        ["<leader>tk"] = { "<cmd>tabprevious<CR>", desc = "前のタブへ" },
+        ["<leader>tj"] = { "<cmd>tabnext<CR>", desc = "次のタブへ" },
 
         -- mappings seen under group name "Buffer"
         ["<Leader>bd"] = {
@@ -79,6 +92,10 @@ return {
 
         -- setting a mapping to false will disable it
         -- ["<C-S>"] = false,
+      v = {
+        [">"] = { ">gv", "Indent right" },
+        ["<"] = { "<gv", "Indent left" },
+        },
       },
     },
   },
